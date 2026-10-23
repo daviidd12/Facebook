@@ -1,10 +1,12 @@
-package me.juanbohorquez.facebook
+package me.juanbohorquez.facebook.ui.theme.screens
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -21,7 +23,9 @@ import androidx.compose.ui.unit.sp
 @Preview
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun FacebookRegisterScreen() {
+fun FacebookRegisterScreen(
+    onNavigateToLogin: () -> Unit = {}
+) {
     var firstName by remember { mutableStateOf("") }
     var lastName by remember { mutableStateOf("") }
     var emailOrPhone by remember { mutableStateOf("") }
@@ -36,8 +40,12 @@ fun FacebookRegisterScreen() {
             TopAppBar(
                 title = { },
                 navigationIcon = {
-
-
+                    IconButton(onClick = onNavigateToLogin) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = "Volver"
+                        )
+                    }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.surface
@@ -200,7 +208,7 @@ fun FacebookRegisterScreen() {
             Spacer(modifier = Modifier.height(16.dp))
 
             // Ir a Iniciar sesión
-            TextButton(onClick = {}) {
+            TextButton(onClick = onNavigateToLogin) {
                 Text(
                     text = "¿Ya tienes una cuenta?",
                     color = FacebookBlue

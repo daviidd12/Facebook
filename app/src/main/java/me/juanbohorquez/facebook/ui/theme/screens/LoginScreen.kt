@@ -1,5 +1,4 @@
-package me.juanbohorquez.facebook
-import androidx.compose.foundation.Image
+package me.juanbohorquez.facebook.ui.theme.screens
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.Arrangement
@@ -11,7 +10,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -24,15 +22,19 @@ import androidx.compose.ui.unit.sp
 
 // Colores oficiales de Facebook
 val FacebookBlue = Color(0xFF1877F2)
-private val FacebookLightBlue = Color(0xFF42B72A) // verde para "Crear cuenta"
-private val FacebookGray = Color(0xFFF0F2F5)
-private val FacebookBorderGray = Color(0xFFCCD0D5)
-private val FacebookTextGray = Color(0xFF606770)
-private val FacebookDarkText = Color(0xFF1C1E21)
+val FacebookLightBlue = Color(0xFF42B72A) // verde para "Crear cuenta"
+val FacebookGray = Color(0xFFF0F2F5)
+val FacebookBorderGray = Color(0xFFCCD0D5)
+val FacebookTextGray = Color(0xFF606770)
+val FacebookDarkText = Color(0xFF1C1E21)
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun FacebookLoginScreen() {
+fun FacebookLoginScreen(
+    onNavigateToRegister: () -> Unit = {},
+    onNavigateToForgotPassword: () -> Unit = {},
+    onNavigateToFeed: () -> Unit = {}
+) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var passwordVisible by remember { mutableStateOf(false) }
@@ -85,7 +87,7 @@ fun FacebookLoginScreen() {
 
         // Botón Iniciar sesión
         Button(
-            onClick = {  },
+            onClick = onNavigateToFeed,
             modifier = Modifier
                 .fillMaxWidth()
                 .height(48.dp),
@@ -104,7 +106,7 @@ fun FacebookLoginScreen() {
         Spacer(modifier = Modifier.height(20.dp))
 
         // Link "¿Olvidaste tu contraseña?"
-        TextButton(onClick = {}) {
+        TextButton(onClick = onNavigateToForgotPassword) {
             Text(
                 text = "¿Olvidaste tu contraseña?",
                 color = FacebookTextGray,
@@ -141,7 +143,7 @@ fun FacebookLoginScreen() {
 
         // Botón Crear cuenta nueva
         Button(
-            onClick = {},
+            onClick = onNavigateToRegister,
             modifier = Modifier
                 .fillMaxWidth()
                 .height(48.dp),

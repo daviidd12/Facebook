@@ -5,16 +5,14 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import me.juanbohorquez.facebook.ui.theme.FacebookTheme
+import me.juanbohorquez.facebook.ui.theme.screens.FacebookForgotPasswordScreen
+import me.juanbohorquez.facebook.ui.theme.screens.FacebookLoginScreen
+import me.juanbohorquez.facebook.ui.theme.screens.FacebookRegisterScreen
+import me.juanbohorquez.facebook.ui.theme.screens.FeedScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,10 +27,24 @@ class MainActivity : ComponentActivity() {
                 modifier = Modifier.fillMaxSize()
             ) {
                 composable(route = "login"){
-                    FacebookLoginScreen()
+                    FacebookLoginScreen(
+                        onNavigateToRegister = { myNavController.navigate("register") },
+                        onNavigateToForgotPassword = { myNavController.navigate("forgot_password") },
+                        onNavigateToFeed = { myNavController.navigate("feed") }
+                    )
                 }
                 composable(route = "register"){
-                    FacebookRegisterScreen()
+                    FacebookRegisterScreen(
+                        onNavigateToLogin = { myNavController.popBackStack() }
+                    )
+                }
+                composable(route = "forgot_password"){
+                    FacebookForgotPasswordScreen(
+                        onNavigateBack = { myNavController.popBackStack() }
+                    )
+                }
+                composable(route = "feed"){
+                    FeedScreen()
                 }
             }
 
